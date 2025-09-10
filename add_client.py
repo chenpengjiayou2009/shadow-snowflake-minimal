@@ -40,6 +40,6 @@ def add_client(num:int):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A sample script demonstrating argument parsing.")
-    parser.add_argument("--clients", type=int, help="number of clients to append.", default=75)
+    parser.add_argument("--clients", type=int, help="number of clients to append.", default=50)
     args = parser.parse_args()
     add_client(args.clients)
