@@ -1,7 +1,7 @@
 import argparse
 
 def add_proxy(num:int):
-    with open("./snowflake-minimal.yaml", 'a') as f:
+    with open("snowflake.yaml", 'a') as f:
         for i in range(num):
             f.write(f"  proxy{i}: *proxy\n")
 
