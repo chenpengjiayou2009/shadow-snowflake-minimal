@@ -1,8 +1,8 @@
 import argparse
 
-def add_client(num:int):
+def add_client(start:int, num:int):
     with open("snowflake.yaml", 'a') as f:
-        for i in range(num):
+        for i in range(start, start+num):
             f.write(f"""
   snowflakeclient-{i}:
     network_node_id: 0
@@ -42,4 +42,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A sample script demonstrating argument parsing.")
     parser.add_argument("--clients", type=int, help="number of clients to append.", default=50)
     args = parser.parse_args()
-    add_client(args.clients)
+    add_client(75, args.clients)
