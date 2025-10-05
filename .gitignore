@@ -1,3 +1,5 @@
 shadow.data*/
 .idea/
 shadow.log
+analyze_output/
+python_process_results/
