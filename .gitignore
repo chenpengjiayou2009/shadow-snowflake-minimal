@@ -5,3 +5,6 @@ analyze_output/*.txt
 analyze_output/*.png
 python_process_results/
 snowflake-real-proxy.yaml
+add_client.py
+add_proxy.py
+add_standalone_proxy.py

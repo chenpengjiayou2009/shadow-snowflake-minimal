@@ -52,6 +52,13 @@ hosts:
       args: -addr ":8080" -disable-tls -unsafe-logging -allowed-relay-pattern ^snowflakeserver$ -bridge-list-path ../../../conf/bridge-list.json
       start_time: 1
       expected_final_state: running
+  stun:
+    network_node_id: 0
+    processes:
+      - path: ~/.local/bin/stund
+        start_time: 1
+        expected_final_state: running
+
   standalone-proxy-0: &standalone-proxy
     network_node_id: 0
     processes:
@@ -68,12 +75,6 @@ hosts:
   standalone-proxy-7: *standalone-proxy
   standalone-proxy-8: *standalone-proxy
   standalone-proxy-9: *standalone-proxy
-  stun:
-    network_node_id: 0
-    processes:
-    - path: ~/.local/bin/stund
-      start_time: 1
-      expected_final_state: running
   proxy: &proxy
     network_node_id: 0
     processes:
@@ -136,6 +137,101 @@ hosts:
   proxy52: *proxy
   proxy53: *proxy
   proxy54: *proxy
+  proxy55: *proxy
+  proxy56: *proxy
+  proxy57: *proxy
+  proxy58: *proxy
+  proxy59: *proxy
+  proxy60: *proxy
+  proxy61: *proxy
+  proxy62: *proxy
+  proxy63: *proxy
+  proxy64: *proxy
+  proxy65: *proxy
+  proxy66: *proxy
+  proxy67: *proxy
+  proxy68: *proxy
+  proxy69: *proxy
+  proxy70: *proxy
+  proxy71: *proxy
+  proxy72: *proxy
+  proxy73: *proxy
+  proxy74: *proxy
+  proxy75: *proxy
+  proxy76: *proxy
+  proxy77: *proxy
+  proxy78: *proxy
+  proxy79: *proxy
+  proxy80: *proxy
+  proxy81: *proxy
+  proxy82: *proxy
+  proxy83: *proxy
+  proxy84: *proxy
+  proxy85: *proxy
+  proxy86: *proxy
+  proxy87: *proxy
+  proxy88: *proxy
+  proxy89: *proxy
+  proxy90: *proxy
+  proxy91: *proxy
+  proxy92: *proxy
+  proxy93: *proxy
+  proxy94: *proxy
+  proxy95: *proxy
+  proxy96: *proxy
+  proxy97: *proxy
+  proxy98: *proxy
+  proxy99: *proxy
+  proxy100: *proxy
+  proxy101: *proxy
+  proxy102: *proxy
+  proxy103: *proxy
+  proxy104: *proxy
+  proxy105: *proxy
+  proxy106: *proxy
+  proxy107: *proxy
+  proxy108: *proxy
+  proxy109: *proxy
+  proxy110: *proxy
+  proxy111: *proxy
+  proxy112: *proxy
+  proxy113: *proxy
+  proxy114: *proxy
+  proxy115: *proxy
+  proxy116: *proxy
+  proxy117: *proxy
+  proxy118: *proxy
+  proxy119: *proxy
+  proxy120: *proxy
+  proxy121: *proxy
+  proxy122: *proxy
+  proxy123: *proxy
+  proxy124: *proxy
+  proxy125: *proxy
+  proxy126: *proxy
+  proxy127: *proxy
+  proxy128: *proxy
+  proxy129: *proxy
+  proxy130: *proxy
+  proxy131: *proxy
+  proxy132: *proxy
+  proxy133: *proxy
+  proxy134: *proxy
+  proxy135: *proxy
+  proxy136: *proxy
+  proxy137: *proxy
+  proxy138: *proxy
+  proxy139: *proxy
+  proxy140: *proxy
+  proxy141: *proxy
+  proxy142: *proxy
+  proxy143: *proxy
+  proxy144: *proxy
+  proxy145: *proxy
+  proxy146: *proxy
+  proxy147: *proxy
+  proxy148: *proxy
+  proxy149: *proxy
 
   attacker:
     network_node_id: 0
@@ -153,10 +249,8 @@ hosts:
         TOR_PT_MANAGED_TRANSPORT_VER: "1"
         TOR_PT_CLIENT_TRANSPORTS: snowflake
       args: -ice "stun:stun:3478" -url "http://broker:8080" -keep-local-addresses -log "pt.log" -unsafe-logging
-      start_time: 90
-      shutdown_time: 130
-    # The following snippet was developed by the proteus authors and used with their permission
-    # https://github.com/unblockable/proteus/blob/99751539b78782d4477411786e4df03b68213e5d/tests/linux/shadow/tgen/shadow.yaml.template#L53-L69
+      start_time: 90 # every client starts at different times
+      shutdown_time: 130 # every client runs for 40 seconds, because if clients run for all the time, the broker would continuously pop proxies for them because real webrtc connections can't be established.
     - path: python3
       args: |
         -c "def getport():
@@ -7312,131 +7406,36 @@ hosts:
     - path: ~/.local/bin/tgen
       args: tgen.client.graphml.xml
       start_time: 1365
-  proxy55: *proxy
-  proxy56: *proxy
-  proxy57: *proxy
-  proxy58: *proxy
-  proxy59: *proxy
-  proxy60: *proxy
-  proxy61: *proxy
-  proxy62: *proxy
-  proxy63: *proxy
-  proxy64: *proxy
-  proxy65: *proxy
-  proxy66: *proxy
-  proxy67: *proxy
-  proxy68: *proxy
-  proxy69: *proxy
-  proxy70: *proxy
-  proxy71: *proxy
-  proxy72: *proxy
-  proxy73: *proxy
-  proxy74: *proxy
-  proxy75: *proxy
-  proxy76: *proxy
-  proxy77: *proxy
-  proxy78: *proxy
-  proxy79: *proxy
-  proxy80: *proxy
-  proxy81: *proxy
-  proxy82: *proxy
-  proxy83: *proxy
-  proxy84: *proxy
-  proxy85: *proxy
-  proxy86: *proxy
-  proxy87: *proxy
-  proxy88: *proxy
-  proxy89: *proxy
-  proxy90: *proxy
-  proxy91: *proxy
-  proxy92: *proxy
-  proxy93: *proxy
-  proxy94: *proxy
-  proxy95: *proxy
-  proxy96: *proxy
-  proxy97: *proxy
-  proxy98: *proxy
-  proxy99: *proxy
-  proxy100: *proxy
-  proxy101: *proxy
-  proxy102: *proxy
-  proxy103: *proxy
-  proxy104: *proxy
-  proxy105: *proxy
-  proxy106: *proxy
-  proxy107: *proxy
-  proxy108: *proxy
-  proxy109: *proxy
-  proxy110: *proxy
-  proxy111: *proxy
-  proxy112: *proxy
-  proxy113: *proxy
-  proxy114: *proxy
-  proxy115: *proxy
-  proxy116: *proxy
-  proxy117: *proxy
-  proxy118: *proxy
-  proxy119: *proxy
-  proxy120: *proxy
-  proxy121: *proxy
-  proxy122: *proxy
-  proxy123: *proxy
-  proxy124: *proxy
-  proxy125: *proxy
-  proxy126: *proxy
-  proxy127: *proxy
-  proxy128: *proxy
-  proxy129: *proxy
-  proxy130: *proxy
-  proxy131: *proxy
-  proxy132: *proxy
-  proxy133: *proxy
-  proxy134: *proxy
-  proxy135: *proxy
-  proxy136: *proxy
-  proxy137: *proxy
-  proxy138: *proxy
-  proxy139: *proxy
-  proxy140: *proxy
-  proxy141: *proxy
-  proxy142: *proxy
-  proxy143: *proxy
-  proxy144: *proxy
-  proxy145: *proxy
-  proxy146: *proxy
-  proxy147: *proxy
-  proxy148: *proxy
-  proxy149: *proxy
 
   snowflakeclient-250:
     network_node_id: 0
     processes:
-    - path: ~/.local/bin/snowflake-client
-      environment:
-        TOR_PT_MANAGED_TRANSPORT_VER: "1"
-        TOR_PT_CLIENT_TRANSPORTS: snowflake
-      args: -ice "stun:stun:3478" -url "http://broker:8080" -keep-local-addresses -log "pt.log" -unsafe-logging
-      start_time: 1340
-      shutdown_time: 1380
-    # The following snippet was developed by the proteus authors and used with their permission
-    # https://github.com/unblockable/proteus/blob/99751539b78782d4477411786e4df03b68213e5d/tests/linux/shadow/tgen/shadow.yaml.template#L53-L69
-    - path: python3
-      args: |
-        -c "def getport():
-          with open('snowflake-client.1000.stdout', 'r') as fin:
-            for line in fin:
-              if line.startswith('CMETHOD snowflake socks5 127.0.0.1:'):
-                return line.strip().split(' ')[3].split(':')[1]
-          return '0'
-        with open('../../../conf/tgen.client.graphml.xml','r') as fin:
-          data = fin.read().replace('SOCKS5LISTENPORT', getport())
-        with open('tgen.client.graphml.xml','w') as fout:
-          fout.write(data)"
-      environment: { PYTHONUNBUFFERED: "1" }
-      start_time: 1350
-      shutdown_time: 1380
-      expected_final_state: {exited: 0}
-    - path: ~/.local/bin/tgen
-      args: tgen.client.graphml.xml
-      start_time: 1370
+      - path: ~/.local/bin/snowflake-client
+        environment:
+          TOR_PT_MANAGED_TRANSPORT_VER: "1"
+          TOR_PT_CLIENT_TRANSPORTS: snowflake
+        args: -ice "stun:stun:3478" -url "http://broker:8080" -keep-local-addresses -log "pt.log" -unsafe-logging
+        start_time: 1340
+        shutdown_time: 1380
+      # The following snippet was developed by the proteus authors and used with their permission
+      # https://github.com/unblockable/proteus/blob/99751539b78782d4477411786e4df03b68213e5d/tests/linux/shadow/tgen/shadow.yaml.template#L53-L69
+      - path: python3
+        args: |
+          -c "def getport():
+            with open('snowflake-client.1000.stdout', 'r') as fin:
+              for line in fin:
+                if line.startswith('CMETHOD snowflake socks5 127.0.0.1:'):
+                  return line.strip().split(' ')[3].split(':')[1]
+            return '0'
+          with open('../../../conf/tgen.client.graphml.xml','r') as fin:
+            data = fin.read().replace('SOCKS5LISTENPORT', getport())
+          with open('tgen.client.graphml.xml','w') as fout:
+            fout.write(data)"
+        environment: { PYTHONUNBUFFERED: "1" }
+        start_time: 1350
+        shutdown_time: 1380
+        expected_final_state: { exited: 0 }
+      - path: ~/.local/bin/tgen
+        args: tgen.client.graphml.xml
+        start_time: 1370
 
