@@ -1,5 +1,7 @@
 shadow.data*/
 .idea/
 shadow.log
-analyze_output/
+analyze_output/*.txt
+analyze_output/*.png
 python_process_results/
+snowflake-real-proxy.yaml
