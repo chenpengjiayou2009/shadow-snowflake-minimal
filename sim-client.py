@@ -19,16 +19,14 @@ HEADERS = {'Content-Type': 'text/plain'}
 # The data needs to be exactly the same as in the shell script
 sdp_offer = {
     "type": "offer",
-    "sdp": "v=0\r\no=- 7861799095244951941 946685155 IN IP4 0.0.0.0\r\ns=-\r\nt=0 0\r\na=msid-semantic:WMS *\r\na=fingerprint:sha-256 D7:10:54:34:D2:C4:7B:34:86:88:9F:EA:D9:DA:29:69:FE:38:24:42:D7:AF:F1:1A:2E:1B:96:8A:56:CC:CC:E7\r\na=extmap-allow-mixed\r\na=group:BUNDLE 0\r\nm=application 9 UDP/DTLS/SCTP webrtc-datachannel\r\nc=IN IP4 0.0.0.0\r\na=setup:actpass\r\na=mid:0\r\na=sendrecv\r\na=sctp-port:5000\r\na=max-message-size:1073741823\r\na=ice-ufrag:zQdlLORgUjTSWgpj\r\na=ice-pwd:hkUduMlXDoCyJbeCAXaDtGFwRfqEbqhN\r\na=candidate:2878742611 1 udp 2130706431 127.0.0.1 49514 typ host ufrag zQdlLORgUjTSWgpj\r\na=candidate:2878742611 2 udp 2130706431 127.0.0.1 49514 typ host ufrag zQdlLORgUjTSWgpj\r\na=candidate:3482232570 1 udp 2130706431 11.0.0.33 24669 typ host ufrag zQdlLORgUjTSWgpj\r\na=candidate:3482232570 2 udp 2130706431 11.0.0.33 24669 typ host ufrag zQdlLORgUjTSWgpj\r\na=candidate:2156745765 1 udp 1694498815 11.0.0.33 22914 typ srflx raddr 0.0.0.0 rport 22914 ufrag zQdlLORgUjTSWgpj\r\na=candidate:2156745765 2 udp 1694498815 11.0.0.33 22914 typ srflx raddr 0.0.0.0 rport 22914 ufrag zQdlLORgUjTSWgpj\r\na=end-of-candidates\r\n"}
-
+    "sdp": "fake-sdp"}
 # Convert the SDP offer to a JSON string
 offer_json = json.dumps(sdp_offer, separators=(',', ':'))
 
 # Base64 encode the JSON string
 base64_offer = base64.b64encode(offer_json.encode('utf-8')).decode('utf-8')
 # The data needs to be exactly the same as in the shell script
-DATA = f"1.0\n{{\"offer\":\"fake-offer\",\"nat\":\"unrestricted\",\"fingerprint\":\"2B280B23E1107BB62ABFC40DDCC8824814F80A72\"}}"
-
+DATA = f"1.0\n{{\"offer\":\"fake-sdp\",\"nat\":\"unrestricted\",\"fingerprint\":\"2B280B23E1107BB62ABFC40DDCC8824814F80A72\"}}"
 
 def get_timestamp():
     """Return current timestamp in the format YYYY-MM-DD HH:MM:SS"""
