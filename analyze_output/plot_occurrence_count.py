@@ -1,6 +1,7 @@
 import re
 import matplotlib.pyplot as plt
 from collections import defaultdict
+import argparse
 
 # 1. Extract session IDs and their occurrence counts and first occurrence line numbers from enumeration file
 def extract_enumeration_info(file_path):
@@ -100,8 +101,13 @@ def plot_occurrence_count(session_counts, first_occurrences, session_types):
 
 # Main function
 def main():
-    enumeration_file = 'enumeration-original.txt'
-    proxy_file = 'proxies-original.txt'
+    parser = argparse.ArgumentParser(description="Script with two positional arguments")
+    parser.add_argument("--enumeration_file", default="enumeration.txt" , help="Path to the enumeration file")
+    parser.add_argument("--proxy_file", default="proxies.txt" ,help="Path to the proxy file")
+    args = parser.parse_args()
+
+    enumeration_file = args.enumeration_file
+    proxy_file = args.proxy_file
     
     try:
         # Extract enumeration information

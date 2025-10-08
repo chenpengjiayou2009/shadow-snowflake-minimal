@@ -1,7 +1,6 @@
 import re
 import matplotlib.pyplot as plt
-import numpy as np
-from collections import defaultdict
+import argparse
 
 # Extract session IDs and line numbers from enumeration file
 def extract_enumeration_data(file_path):
@@ -116,19 +115,21 @@ def plot_scatter_with_types(session_data, first_occurrences, session_types):
 
 # Main function
 def main():
-    enumeration_file = 'enumeration-FIFO.txt'
-    proxy_file = 'proxies-FIFO.txt'
+    parser = argparse.ArgumentParser(description="Script with two positional arguments")
+    parser.add_argument("--enumeration-file", default="enumeration.txt" , help="Path to the enumeration file")
+    parser.add_argument("--proxy-file", default="proxies.txt" , help="Path to the proxies file")
+    args = parser.parse_args()
     
     try:
         # Extract enumeration data
-        session_data, first_occurrences = extract_enumeration_data(enumeration_file)
+        session_data, first_occurrences = extract_enumeration_data(args.enumeration_file)
         
         if not session_data:
             print("No session IDs found in the enumeration file.")
             return
         
         # Extract proxy type data
-        session_types = extract_proxy_types(proxy_file)
+        session_types = extract_proxy_types(args.proxy_file)
         
         # Plot scatter graph
         plot_scatter_with_types(session_data, first_occurrences, session_types)

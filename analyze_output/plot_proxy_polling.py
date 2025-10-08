@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 import re
-from collections import defaultdict
+import argparse
 
 # Function to process popping.txt and proxies.txt and generate the plot
 def plot_proxy_polling(filename:str):
@@ -122,5 +122,7 @@ def plot_proxy_polling(filename:str):
         print("No data to plot")
 
 if __name__ == "__main__":
-    filename="enumeration-FIFO.txt"
-    plot_proxy_polling(filename)
+    parser = argparse.ArgumentParser(description="Script with two positional arguments")
+    parser.add_argument("--file", default="enumeration.txt" , help="Path to the enumeration file")
+    args = parser.parse_args()
+    plot_proxy_polling(args.file)
