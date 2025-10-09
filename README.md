@@ -4,4 +4,4 @@
 2. cd sim-proxy
 3. go build main.go
 4. cp main ~/.local/bin/snowflake-proxy
-5. run_test.sh
+5. run_enumeration.sh
