@@ -5,7 +5,7 @@ import re
 import argparse
 
 # Function to process popping.txt and proxies.txt and generate the plot
-def plot_proxy_polling(filename:str):
+def plot_proxy_polling(proxy_file:str, enumeration_file:str):
     # Set up data structures to track unique proxies
     webext_proxies = set()
     standalone_proxies = set()
@@ -24,7 +24,7 @@ def plot_proxy_polling(filename:str):
 
     print("Processing proxies.txt...")
     try:
-        with open('proxies-FIFO.txt', 'r') as f:
+        with open(proxy_file, 'r') as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -38,8 +38,6 @@ def plot_proxy_polling(filename:str):
                 if type_match and session_match:
                     proxy_type = type_match.group(1)
                     session_id = session_match.group(1)
-                    print(proxy_type)
-                    print("session id", session_id)
                     
                     # Add to the appropriate set
                     if proxy_type == 'webext':
@@ -54,7 +52,7 @@ def plot_proxy_polling(filename:str):
     # Process popping.txt
     print("Processing enumeration.txt...")
     try:
-        with open(filename, 'r') as f:
+        with open(enumeration_file, 'r') as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -70,11 +68,9 @@ def plot_proxy_polling(filename:str):
                 current_line += 1
                 line_numbers.append(current_line)
                 if session_id in webext_proxies and session_id not in current_unique_web_count:
-                    print("find a web-ext session", session_id)
                     current_unique_web_count.add(session_id)
                 
                 if session_id in standalone_proxies and session_id not in current_unique_standalone_count:
-                    print("find a standalone session", session_id)
                     current_unique_standalone_count.add(session_id)
 
                 current_unique_total_count.add(session_id)
@@ -85,11 +81,6 @@ def plot_proxy_polling(filename:str):
 
     except FileNotFoundError:
         print("Warning: popping.txt not found")
-    
-    for id in webext_proxies:
-        if id not in current_unique_web_count:
-            print(id)
-            print(";;;")
     
     # Create the plot
     print("Generating plot...")
@@ -112,7 +103,7 @@ def plot_proxy_polling(filename:str):
         plt.grid(True)
         
         # Save the plot
-        output_file = 'proxy_polling_trends_FIFO.png'
+        output_file = 'proxy_polling_trends.png'
         plt.savefig(output_file)
         print(f"Plot saved to {output_file}")
         
@@ -123,6 +114,7 @@ def plot_proxy_polling(filename:str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script with two positional arguments")
-    parser.add_argument("--file", default="enumeration.txt" , help="Path to the enumeration file")
+    parser.add_argument("--enumeration-file", default="enumeration.txt" , help="Path to the enumeration file")
+    parser.add_argument("--proxy-file", default="proxies.txt", help="Path to the proxy file")
     args = parser.parse_args()
-    plot_proxy_polling(args.file)
+    plot_proxy_polling(args.proxy_file, args.enumeration_file)
