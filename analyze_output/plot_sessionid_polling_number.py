@@ -43,7 +43,12 @@ def extract_proxy_types(file_path):
 # Plot scatter graph
 def plot_scatter_with_types(session_data, first_occurrences, session_types):
     # Assign a unique index to each unique session ID
-    unique_sessions = {session_id: i for i, (session_id, _) in enumerate(set(session_data))}
+    unique_sessions = {}
+    current_session_index = 0
+    for (session_id, line_number) in set(session_data):
+        if session_id not in unique_sessions:
+            unique_sessions[session_id] = current_session_index
+            current_session_index += 1
     
     # Prepare data
     x = [unique_sessions[session_id] for session_id, _ in session_data]
@@ -101,7 +106,7 @@ def plot_scatter_with_types(session_data, first_occurrences, session_types):
     
     # Save plot
     plt.tight_layout()
-    plt.savefig('enumeration_with_types_scatter_FIFO.png', dpi=300)
+    plt.savefig('enumeration_with_types_scatter.png', dpi=300)
     print(f"Scatter plot saved as 'enumeration_with_types_scatter.png'")
     
     # Statistical information
